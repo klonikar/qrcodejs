@@ -144,7 +144,8 @@ function gotSources(sourceInfos) {
   while(videoSelect.firstChild)
     videoSelect.removeChild(videoSelect.firstChild);
 
-  for (var i = 0; i !== sourceInfos.length; ++i) {
+  // Run the loop in the reverse order to get rear camera first
+  for (var i = sourceInfos.length - 1; i >= 0; --i) {
     var sourceInfo = sourceInfos[i];
     var option = document.createElement('option');
     option.value = sourceInfo.id;
@@ -158,6 +159,7 @@ function gotSources(sourceInfos) {
       console.log('Some other kind of source: ', sourceInfo);
     }
   }
+  setwebcam();
 }
 
 function load()
@@ -168,7 +170,7 @@ function load()
 		initCanvas(800, 600);
 		qrcode.callback = read;
 		document.getElementById("mainbody").style.display="inline";
-		setwebcam();
+		//setwebcam();
 		var videoSelect = document.querySelector('select#videoSource');
 		videoSelect.onchange = setwebcam;
 		if (typeof MediaStreamTrack === 'undefined'){
