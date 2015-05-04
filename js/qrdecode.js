@@ -93,6 +93,10 @@ function captureToCanvas() {
                 setTimeout(captureToCanvas, 500);
         };
     }
+    else
+    {
+        console.log("Media not captured yet or error in capturing media");
+    }
 }
 
 function htmlEntities(str) {
@@ -116,7 +120,11 @@ function isCanvasSupported(){
 function success(stream) {
     window.stream = stream;
     if(webkit) {
-        v.src = window.webkitURL.createObjectURL(stream);
+        if(window.URL)
+            v.src = window.URL.createObjectURL(stream);
+        else if(window.webkitURL)
+            v.src = window.webkitURL.createObjectURL(stream);
+
         v.play();
     }
     else
@@ -129,7 +137,7 @@ function success(stream) {
         v.src = stream;
 
     gUM=true;
-    //setTimeout(captureToCanvas, 500);
+    setTimeout(captureToCanvas, 500);
 }
 		
 function error(error) {
@@ -233,7 +241,7 @@ function setwebcam()
     document.getElementById("webcamimg").style.opacity=1.0;
 
     stype=1;
-    setTimeout(captureToCanvas, 500);
+    //setTimeout(captureToCanvas, 500);
 }
 
 function setimg()
